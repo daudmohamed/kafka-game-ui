@@ -3,8 +3,11 @@ import Fetcher from "@/lib/Fetcher";
 import { Team } from "@/lib/model";
 import { handleResponse } from "@/lib/utils";
 
+const baseUrl = process.env.KAFKA_GAME_API_URL;
+
+
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  const url = `http://localhost:8080/teams`;
+  const url = `${baseUrl}/teams`;
   const headers = {
     "Content-Type": "application/json",
   };
