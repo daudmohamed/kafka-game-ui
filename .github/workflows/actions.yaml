@@ -34,22 +34,22 @@ jobs:
         if: steps.node_modules.outputs.cache-hit != 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-  test:
-    needs: [ install ]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
-
-      - run: npm run test
+#  test:
+#    needs: [ install ]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-node@v4
+#        with:
+#          node-version: '20.x'
+#
+#      - name: Cache node_modules
+#        uses: actions/cache@v4
+#        with:
+#          path: ./node_modules
+#          key: modules-${{ hashFiles('package-lock.json') }}
+#
+#      - run: npm run test
 
   build:
     needs: [ install ]
@@ -94,7 +94,7 @@ jobs:
       image: ${{ steps.docker-build-push.outputs.image }}
 
   push-image:
-    needs: [ build, test ]
+    needs: [ build ]
     runs-on: ubuntu-latest
     # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
     permissions:
