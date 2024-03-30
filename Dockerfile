@@ -10,7 +10,7 @@ RUN adduser -D -u 1001 -g 1001 $RUN_USER
 COPY .next ./.next
 COPY node_modules ./node_modules
 COPY package.json ./package.json
-COPY next.config.js ./next.config.js
+COPY next.config.mjs ./next.config.mjs
 # Add environment variables
 COPY .env ./.env
 # Add public resources
