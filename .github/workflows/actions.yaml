@@ -71,28 +71,6 @@ jobs:
           key: modules-${{ hashFiles('package-lock.json') }}
       - run: npm run build
 
-      # Bygg docker image
-      - name: docker-build-push
-        uses: nais/docker-build-push@v0
-        id: docker-build-push
-        with:
-          team: meldekort
-          push_image: true # optional, default true
-          dockerfile: Dockerfile # optional, default Dockerfile
-          docker_context: . # optional, default .
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-
-      - name: Cache static files
-        uses: actions/cache@v4
-        with:
-          path: |
-            ./build
-            ./public
-          key: ${{ github.sha }}
-    outputs:
-      image: ${{ steps.docker-build-push.outputs.image }}
-
   push-image:
     needs: [ build ]
     runs-on: ubuntu-latest

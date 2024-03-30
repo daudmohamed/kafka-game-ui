@@ -6,7 +6,7 @@ import { handleResponse } from "@/lib/utils";
 const baseUrl = process.env.KAFKA_GAME_API_URL;
 
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(): Promise<NextResponse> {
   const url = `${baseUrl}/teams`;
   const headers = {
     "Content-Type": "application/json",
