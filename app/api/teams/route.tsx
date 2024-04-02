@@ -20,7 +20,8 @@ export async function GET(): Promise<NextResponse> {
     .then(handleResponse)
     .then((data) => {
       if (data === undefined || data.length === 0) {
-        return NextResponse.json([{ key: "error", value: "No support org" }], {
+        console.log(data)
+        return NextResponse.json([{ key: "error", value: "Something went wrong" }], {
           status: 500,
         });
       } else {
