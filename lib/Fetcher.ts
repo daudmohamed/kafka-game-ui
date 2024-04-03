@@ -22,7 +22,7 @@ const Fetcher = async <T>({
   } else {
     b = body ? JSON.stringify(body) : undefined;
   }
-  headers = { ...headers, "Cache-Control": "no-cache" };
+  headers = { ...headers, "Cache-Control": "no-cache, max-age=0" };
 
   try {
     response = await fetch(url, {

@@ -4,12 +4,27 @@ import { KafkaGameHooks } from "@/app/kafka-game/hooks";
 import { Team } from "@/lib/model";
 import "./page.module.css";
 
-const TeamComponent = (props: Team) => {
+type TeamProps = Team & { index: number}
+
+const TeamComponent = (props: TeamProps) => {
   // sort answers by position
   const answers = props.answers.sort((a, b) => a.position - b.position);
-
+  let backgroundColor;
+  switch (props.index) {
+    case 0:
+      backgroundColor = "#FFD700";
+      break;
+    case 1:
+      backgroundColor = "#C0C0C0";
+      break;
+    case 2:
+      backgroundColor = "#CD7F32";
+      break;
+    default:
+      backgroundColor = "#FFFFFF";
+  }
   return (
-    <div className="container border p-4 rounded-3 shadow">
+    <div className="container border p-4 rounded-3 shadow" style={{ backgroundColor: backgroundColor}}>
       <div className="row">
         <div className="col">
           <div className="row d-flex p-2 align-items-center justify-content-center">
@@ -68,9 +83,9 @@ export default function Home() {
         <p className="text-body-secondary">Life is a stream of questions</p>
       </div>
       <div className="row g-4">
-        {teams.map((team) => (
+        {teams.map((team, index) => (
           <div key={team.id} className="col-6 col-xxl-6">
-            <TeamComponent {...team} />
+            <TeamComponent index={index} {...team} />
           </div>
         ))}
       </div>
