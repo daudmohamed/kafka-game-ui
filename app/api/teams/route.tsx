@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Fetcher from "@/lib/Fetcher";
 import { Team } from "@/lib/model";
 import { handleResponse } from "@/lib/utils";
+import logger from "@/lib/logger";
 
 const baseUrl = process.env.KAFKA_GAME_API_URL;
 
@@ -20,7 +21,7 @@ export async function GET(): Promise<NextResponse> {
     .then(handleResponse)
     .then((data) => {
       if (data === undefined || data.length === 0) {
-        console.log(data)
+        logger.info(data)
         return NextResponse.json([{ key: "error", value: "Something went wrong" }], {
           status: 500,
         });

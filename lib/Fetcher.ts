@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isStatusOk } from "@/lib/utils";
+import logger from "@/lib/logger";
 
 type FetcherProps = {
   url: string;
@@ -15,7 +16,7 @@ const Fetcher = async <T>({
   body,
 }: FetcherProps): Promise<NextResponse> => {
   let response;
-  console.log("Fetcher calling url: ", url);
+  logger.info("Fetcher calling url: " + url);
   let b;
   if (body instanceof FormData) {
     b = body;
@@ -31,29 +32,29 @@ const Fetcher = async <T>({
       body: b,
     });
   } catch (error) {
-    console.error("Failed to fetch data: ", { error });
+    logger.error("Failed to fetch data: ", { error });
     return NextResponse.json([{ key: "error", value: error }], {
       status: 500,
     });
   }
 
   if (!isStatusOk(response)) {
-    console.error("Failed to fetch data, invalid response", {
+    logger.error("Failed to fetch data, invalid response", {
       status: response.status,
       statusText: response.statusText,
     });
     try {
       const json = await response.json();
-      console.error("Error json:", json);
+      logger.error("Error json:", json);
     } catch (error) {
-      console.error("unable to parse error json");
+      logger.error("unable to parse error json");
     }
     return NextResponse.json([{ key: "error", value: response.statusText }], {
       status: response.status,
     });
   }
 
-  console.info("Response status: " + response.status);
+  logger.info("Response status: " + response.status);
 
   if (response.status === 204) {
     return NextResponse.json({});

@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { handleResponse } from "@/lib/utils";
 import { Team } from "@/lib/model";
+import logger from "@/lib/logger";
 
 type TeamState = {
   teams: Team[];
@@ -38,6 +39,6 @@ const fetchTeams = async (
       teams: [...teamsData],
     });
   } catch (error) {
-    console.error("Error fetching data:", { error });
+    logger.error("Error fetching data:", { error });
   }
 };
