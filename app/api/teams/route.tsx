@@ -16,7 +16,6 @@ export async function GET(): Promise<NextResponse> {
     url: url,
     method: "GET",
     headers: headers,
-    body: undefined,
   })
     .then(handleResponse)
     .then((data) => {

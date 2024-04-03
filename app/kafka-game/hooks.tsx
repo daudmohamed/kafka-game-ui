@@ -33,7 +33,7 @@ const fetchTeams = async (
   setTeamState: Dispatch<SetStateAction<TeamState>>,
 ) => {
   try {
-    const teamsData = await fetch(`/api/teams`).then(handleResponse);
+    const teamsData = await fetch(`/api/teams`, { cache: 'no-store' }).then(handleResponse);
     setTeamState({
       ...teamState,
       teams: [...teamsData],

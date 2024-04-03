@@ -30,6 +30,7 @@ const Fetcher = async <T>({
       method: method,
       headers: headers,
       body: b,
+      cache: 'no-store'
     });
   } catch (error) {
     logger.error("Failed to fetch data: ", { error });
