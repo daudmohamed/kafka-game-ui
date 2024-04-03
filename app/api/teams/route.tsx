@@ -20,14 +20,8 @@ export async function GET(): Promise<NextResponse> {
   })
     .then(handleResponse)
     .then((data) => {
-      if (data === undefined || data.length === 0) {
         logger.info(data)
-        return NextResponse.json([{ key: "error", value: "Something went wrong" }], {
-          status: 500,
-        });
-      } else {
         return NextResponse.json(data);
-      }
     })
     .catch((error) => {
       return NextResponse.json([{ key: "error", value: error }], {
