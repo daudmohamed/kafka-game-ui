@@ -4,6 +4,7 @@ export type Team = {
   score: number;
   hexColor: string;
   answers: Answer[];
+  highestAnswerId: number
 };
 
 export type Answer = {

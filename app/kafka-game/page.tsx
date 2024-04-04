@@ -74,8 +74,13 @@ const TeamComponent = (props: TeamProps) => {
 
 export default function Home() {
   const { teamState } = KafkaGameHooks("leaderboard");
-  // sort teams by score
-  const teams = teamState.teams.sort((a, b) => b.score - a.score);
+  // sort teams by score and lowest highestAnswerId
+    const teams = teamState.teams.sort((a, b) => {
+        if (a.score === b.score) {
+          return a.highestAnswerId - b.highestAnswerId;
+        }
+        return b.score - a.score;
+      });
   return (
     <div className="container-fluid">
       <div className="row text-center">
